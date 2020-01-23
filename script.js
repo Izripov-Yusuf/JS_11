@@ -1,9 +1,5 @@
-let money = 1;
-let income = 2;
-let addExpenses = 3;
-let deposit = 4;
-let mission = 5;
-let period = 6;
+let money = 1, income = 2, addExpenses = 3, deposit = 4, mission = 5, period = 6;
 
 alert('Hello, Oleg!');
+
 console.log('Hello, Oleg!');
