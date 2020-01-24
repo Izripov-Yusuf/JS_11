@@ -1,5 +1,13 @@
-let money = 1, income = 2, addExpenses = 3, deposit = 4, mission = 5, period = 6;
+let money = 30000, income = '15000', addExpenses = 'Аренда, Еда, Интернет, Коммуналка, Транспорт',
+  deposit = false, mission = 100000, period = 3;
 
-alert('Hello, Oleg!');
+console.log(typeof money, typeof income, typeof deposit);
 
-console.log('Hello, Oleg!');
+console.log(addExpenses.length);
+
+console.log("Период равен " + period + " месяца. " + "Цель заработать " + mission + " рублей");
+
+console.log(addExpenses.toLowerCase().split(','));
+
+let budgetDay = money / 30;
+console.log(budgetDay);
