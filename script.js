@@ -50,7 +50,7 @@ let getStatusIncome = function() {
   else if (budgetDay < 0) {
     return ('Что то пошло не так');
   }
-  else if ((budgetDay < 600) || (budgetDay === 0)) {
+  else if (budgetDay < 600) {
     return ('К сожалению у вас уровень дохода ниже среднего');
   }
 };
