@@ -58,7 +58,8 @@ let appData = {
     return appData.budget - appData.expensesMonth;
   },
   getTargetMonth: function () {
-    return Math.ceil(appData.mission / appData.getBudget());
+    appData.budgetMonth = Math.ceil(appData.mission / appData.getBudget());
+    appData.budgetDay = Math.floor(appData.getBudget() / 30);
   },
   getStatusIncome: function () {
     if (appData.budgetDay > 1200) {
@@ -77,7 +78,6 @@ let appData = {
 
 appData.asking();
 appData.expensesMonth = appData.getExpensesMonth();
-appData.budgetDay = Math.floor(appData.getBudget() / 30);
 
 console.log(appData.budget);
 console.log('Расходы за месяц: ', appData.expensesMonth);
