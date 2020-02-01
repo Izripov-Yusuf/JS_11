@@ -55,11 +55,11 @@ let appData = {
     return sum;
   },
   getBudget: function () {
-    return appData.budget - appData.expensesMonth;
+    appData.budgetMonth = appData.budget - appData.expensesMonth;
+    appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
   getTargetMonth: function () {
-    appData.budgetMonth = Math.ceil(appData.mission / appData.getBudget());
-    appData.budgetDay = Math.floor(appData.getBudget() / 30);
+    return Math.ceil(appData.mission / appData.budgetMonth);
   },
   getStatusIncome: function () {
     if (appData.budgetDay > 1200) {
@@ -78,11 +78,12 @@ let appData = {
 
 appData.asking();
 appData.expensesMonth = appData.getExpensesMonth();
+appData.getBudget();
 
 console.log(appData.budget);
 console.log('Расходы за месяц: ', appData.expensesMonth);
 
-console.log('Накопится за месяц: ', appData.getBudget());
+console.log('Накопится за месяц: ', appData.budgetMonth);
 
 if (appData.getTargetMonth() > 0) {
   console.log('Цель достигнется за: ', appData.getTargetMonth());
