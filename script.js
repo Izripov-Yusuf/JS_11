@@ -18,13 +18,38 @@ let appData = {
   income: {},
   addIncome: [],
   expenses: {},
+  strExpenses: '',
   addExpenses: [],
   deposit: false,
+  percentDeposit: 0,
+  moneyDeposit: 0,
   mission: 100000,
   period: 3,
   asking: function () {
+    if (confirm('Есть ли у вас дополнительный источник заработка?')) {
+      let itemIncome = prompt('Какой у вас дополнительный заработок?', 'Продаю, бананы, людей. Шучу, не бананы');
+      while (isNumber(itemIncome)) {
+        itemIncome = prompt('Какой у вас дополнительный заработок?', 'Продаю, бананы, людей. Шучу, не бананы');
+      }
+      let cashIncome = +prompt('Сколько вы в месяц зарабатываете на этом?', 10000);
+      while (!isNumber(cashIncome)) {
+        cashIncome = +prompt('Сколько вы в месяц зарабатываете на этом?', 10000);
+      }
+      appData.income[itemIncome] = cashIncome;
+    }
+
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-        appData.addExpenses = addExpenses.toLowerCase().split(',');
+        appData.addExpenses = addExpenses.toLowerCase().split(', ');
+        appData.firstLetterCaps = function () {
+          let res = [];
+          for (let i = 0; i < appData.addExpenses.length; i++) {
+            let word = appData.addExpenses[i];
+            res += `${word.charAt(0).toUpperCase() + word.slice(1)}, `;
+          }
+          return res;
+        };
+        appData.strExpenses = appData.firstLetterCaps().trim().split(', ');
+        appData.addExpenses = appData.strExpenses.join(', ');
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
         let sum = 0,
         res = 0,
@@ -32,6 +57,9 @@ let appData = {
         for (let i = 0; i < 2; i++) {
 
           question = prompt('Введите обязательную статью расходов?');
+          while (isNumber(question)) {
+            question = prompt('Введите обязательную статью расходов?');
+          }
           sum = prompt('Во сколько это обойдется?');
           while (!isNumber(sum)) {
             sum = prompt('Во сколько это обойдется?');
@@ -74,6 +102,21 @@ let appData = {
       return ('К сожалению у вас уровень дохода ниже среднего');
     }
   },
+  getInfoDeposit: function () {
+    if (appData.deposit) {
+      appData.percentDeposit = +prompt('Какой годовой процент?', 10);
+      while (!isNumber(appData.percentDeposit)) {
+        appData.percentDeposit = +prompt('Какой годовой процент?', 10);
+      }
+      appData.moneyDeposit = +prompt('Какая сумма заложена', 10000);
+      while (!isNumber(appData.percentDeposit)) {
+        appData.percentDeposit = +prompt('Какая сумма заложена', 10000);
+      }
+    }
+  },
+  calcSavedMoney: function () {
+    return appData.budgetMonth * appData.period;
+  }
 };
 
 appData.asking();
@@ -98,3 +141,6 @@ console.log('Уровень дохода: ', appData.getStatusIncome());
 for (let key in appData) {
   console.log('Наша программа включает в себя данные: ' + 'свойство ' + key + ' значение ' + appData[key]);
 }
+
+
+console.log(appData.addExpenses.substring(0, appData.addExpenses.length - 1));
