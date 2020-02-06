@@ -176,7 +176,7 @@ let appData = {
 start.addEventListener('click', function (event) {
   event.preventDefault();
   if (salaryAmount.value === '') {
-    alert('Ошибка, поле "Месячный доход" должно быть заполнено!');
+    event.preventDefault();
   } else {
     appData.start();
   }
