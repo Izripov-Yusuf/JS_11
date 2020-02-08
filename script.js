@@ -262,6 +262,9 @@ let appData = {
       if (expensesPlus.style.display === 'none') {
         expensesPlus.style.display = 'block';
       }
+      if (depositCheck.checked === true) {
+        depositCheck.checked = false;
+      }
     });
   }
 };
