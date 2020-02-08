@@ -25,7 +25,7 @@ let start = document.getElementById('start'),
     periodSelect = document.querySelector('.period-select'),
     periodAmount = document.querySelector('.period-amount'),
     incomeItem = document.querySelectorAll('.income-items'),
-    leftInputs = document.querySelectorAll('.data input[type=text]');
+    allInputs = document.querySelectorAll('input[type=text]');
 
 let isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
@@ -176,21 +176,30 @@ let appData = {
   },
   resetInputs: function () {
     start.style.display = 'none';
+    let leftInputs = document.querySelectorAll('.data input[type=text]');
     for (let i = 0; i < leftInputs.length; i++) {
       let elem = leftInputs[i];
       elem.disabled = true;
     }
     cancel.style.display = 'block';
     cancel.addEventListener('click', function () {
-      for (let i = 0; i < leftInputs.length; i++) {
-        let elem = leftInputs[i];
+      for (let i = 0; i < allInputs.length; i++) {
+        let elem = allInputs[i];
         elem.value = '';
       }
+      let incomeItem = document.querySelectorAll('.income-items');
+      incomeItem[1].remove();
+      incomeItem[2].remove();
+      let expensesItems = document.querySelectorAll('.expenses-items');
+      expensesItems[1].remove();
+      expensesItems[2].remove();
       cancel.style.display = 'none';
       for (let i = 0; i < leftInputs.length; i++) {
         let elem = leftInputs[i];
         elem.disabled = false;
       }
+      periodSelect.value = '1';
+      periodAmount.textContent = periodSelect.value;
       start.style.display = 'block';
     });
   }
