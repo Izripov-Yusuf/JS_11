@@ -16,20 +16,36 @@ let start = document.getElementById('start'),
     targetMonthValue = document.querySelector('.target_month-value'),
     salaryAmount = document.querySelector('.salary-amount'),
     incomeTitle = document.querySelectorAll('.income-title')[1],
+    incomeAmount = document.querySelectorAll('.income-amount'),
     additionalIncomeFirst = document.querySelectorAll('.additional_income-item')[0],
     additionalIncomeSecond = document.querySelectorAll('.additional_income-item')[1],
     expensesTitle = document.querySelectorAll('.expenses-title')[1],
     expensesItems = document.querySelectorAll('.expenses-items'),
+    expensesAmount = document.querySelectorAll('.expenses-amount'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
     periodSelect = document.querySelector('.period-select'),
     periodAmount = document.querySelector('.period-amount'),
     incomeItem = document.querySelectorAll('.income-items'),
-    allInputs = document.querySelectorAll('input[type=text]');
+    allInputs = document.querySelectorAll('input[type=text]'),
+    inputPlaceholderNumber = document.querySelectorAll('.data [placeholder = "Сумма"]'),
+    inputPlaceholderName = document.querySelectorAll('.data [placeholder = "Наименование"]');
 
 let isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
+
+function inputNum() {
+  for (let i = 0; i < inputPlaceholderNumber.length; i++) {
+    inputPlaceholderNumber[i].value = inputPlaceholderNumber[i].value.replace(/[^0-9]/, '');
+  }
+}
+
+function inputText() {
+  for (let i = 0; i < inputPlaceholderName.length; i++) {
+    inputPlaceholderName[i].value = inputPlaceholderName[i].value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+  }
+}
 
 let appData = {
   income: {},
@@ -68,8 +84,18 @@ let appData = {
   },
   addExpensesBlock: function () {
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
+    cloneExpensesItem.children[0].value = '';
+    cloneExpensesItem.children[1].value = '';
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
     expensesItems = document.querySelectorAll('.expenses-items');
+    inputPlaceholderNumber = document.querySelectorAll('.data [placeholder = "Сумма"]');
+    inputPlaceholderName = document.querySelectorAll('.data [placeholder = "Наименование"]');
+    for (let i = 0; i < inputPlaceholderNumber.length; i++) {
+      inputPlaceholderNumber[i].addEventListener('input', inputNum);
+    }
+    for (let i = 0; i < inputPlaceholderName.length; i++) {
+      inputPlaceholderName[i].addEventListener('input', inputText);
+    }
 
     if (expensesItems.length === 3) {
       expensesPlus.style.display = 'none';
@@ -77,8 +103,19 @@ let appData = {
   },
   addIncomeBlock: function () {
     let cloneIncomesItem = incomeItem[0].cloneNode(true);
+    cloneIncomesItem.childNodes[1].value = '';
+    cloneIncomesItem.childNodes[3].value = '';
     incomeItem[0].parentNode.insertBefore(cloneIncomesItem, incomePlus);
     incomeItem = document.querySelectorAll('.income-items');
+    inputPlaceholderNumber = document.querySelectorAll('.data [placeholder = "Сумма"]');
+    inputPlaceholderName = document.querySelectorAll('.data [placeholder = "Наименование"]');
+    for (let i = 0; i < inputPlaceholderNumber.length; i++) {
+      inputPlaceholderNumber[i].addEventListener('input', inputNum);
+    }
+    for (let i = 0; i < inputPlaceholderName.length; i++) {
+      inputPlaceholderName[i].addEventListener('input', inputText);
+    }
+
 
     if (incomeItem.length === 3) {
       incomePlus.style.display = 'none';
@@ -219,6 +256,48 @@ expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
 
 periodSelect.addEventListener('change', appData.changeRange);
+
+expensesPlus.addEventListener('click', appData.addExpensesBlock);
+
+incomePlus.addEventListener('click', appData.addIncomeBlock);
+
+periodSelect.addEventListener('change', appData.changeRange);
+
+incomeTitle.addEventListener('input', function () {
+  incomeTitle.value = incomeTitle.value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+});
+
+additionalIncomeItem[0].addEventListener('input', function () {
+  additionalIncomeItem[0].value = additionalIncomeItem[0].value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+});
+
+additionalIncomeItem[1].addEventListener('input', function () {
+  additionalIncomeItem[1].value = additionalIncomeItem[1].value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+});
+
+expensesTitle.addEventListener('input', function () {
+  expensesTitle.value = expensesTitle.value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+});
+
+additionalExpensesItem.addEventListener('input', function () {
+  additionalExpensesItem.value = additionalExpensesItem.value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+});
+
+salaryAmount.addEventListener('input', function () {
+  salaryAmount.value = salaryAmount.value.replace(/[^0-9]/, '');
+});
+
+incomeAmount[0].addEventListener('input', function () {
+  incomeAmount[0].value = incomeAmount[0].value.replace(/[^0-9]/, '');
+});
+
+expensesAmount[0].addEventListener('input', function () {
+  expensesAmount[0].value = expensesAmount[0].value.replace(/[^0-9]/, '');
+});
+
+targetAmount.addEventListener('input', function () {
+  targetAmount.value = targetAmount.value.replace(/[^0-9]/, '');
+});
 
 
 
