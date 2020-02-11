@@ -7,7 +7,10 @@ function DomElement(selector, height, width, bg, fontSize) {
   this.width = width;
   this.bg = bg;
   this.fontSize = fontSize;
+  this.newElem();
+}
 
+DomElement.prototype.newElem = function (selector, height, width, bg, fontSize) {
   if (this.selector[0] === '.') {
     this.elem = document.createElement('div');
     this.elem.className = this.selector.substring(1);
@@ -20,15 +23,16 @@ function DomElement(selector, height, width, bg, fontSize) {
 
   let body = document.querySelector('body');
   body.append(this.elem);
-
-}
+};
 
 DomElement.prototype.createText = function (text) {
   this.elem.textContent = text;
 };
 
 let someElem = new DomElement('.div', 500, 500, 'green', 23);
+someElem.newElem('.div', 500, 500, 'green', 23);
 someElem.createText('Попытка сделать домашку');
 
 let someElem2 = new DomElement('#best', 700, 700, 'yellow', 53);
+someElem2.newElem('#best', 700, 700, 'yellow', 53);
 someElem2.createText('Попытка сделать домашку успешна');
