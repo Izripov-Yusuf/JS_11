@@ -287,7 +287,7 @@ console.log('appData: ', appData);
 AppData.prototype.eventListeners = function () {
   salaryAmount.addEventListener('input', blockStart);
 
-  start.addEventListener('click', this.start.bind(appData));
+  start.addEventListener('click', this.start.bind(this));
 
   expensesPlus.addEventListener('click', this.addExpensesBlock);
 
@@ -338,7 +338,7 @@ AppData.prototype.eventListeners = function () {
   });
 };
 
-AppData.prototype.eventListeners();
+appData.eventListeners();
 
 
 
