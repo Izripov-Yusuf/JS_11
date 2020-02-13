@@ -200,7 +200,7 @@ class AppData {
   }
 
   getBudget() {
-    const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+    const monthDeposit = Math.floor(this.moneyDeposit * (this.percentDeposit / 100));
     this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
     this.budgetDay = Math.floor(this.budgetMonth / 30);
   }
@@ -307,7 +307,7 @@ class AppData {
       depositPercent.value = valueSelect;
       depositPercent.style.display = 'none';
     }
-    depositPercent.addEventListener('input', function () {
+    depositPercent.addEventListener('change', function () {
       if (!isNumber(depositPercent.value) || depositPercent.value > 100) {
         start.disabled = !isNumber(depositPercent.value) || depositPercent.value > 100;
         alert('Введите корректное значение в поле проценты');
