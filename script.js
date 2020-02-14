@@ -307,15 +307,15 @@ class AppData {
       depositPercent.value = valueSelect;
       depositPercent.style.display = 'none';
     }
-    depositPercent.addEventListener('change', function () {
-      if (!isNumber(depositPercent.value) || depositPercent.value > 100) {
-        start.disabled = !isNumber(depositPercent.value) || depositPercent.value > 100;
-        alert('Введите корректное значение в поле проценты');
-      } else {
-        start.disabled = false;
-      }
-    });
+  }
 
+  personPercent() {
+    if (!isNumber(depositPercent.value) || depositPercent.value > 100) {
+      start.disabled = !isNumber(depositPercent.value) || depositPercent.value > 100;
+      alert('Введите корректное значение в поле проценты');
+    } else {
+      start.disabled = false;
+    }
   }
 
   depositHandler() {
@@ -324,6 +324,7 @@ class AppData {
       depositAmount.style.display = 'inline-block';
       this.deposit = true;
       depositBank.addEventListener('change', this.changePercent);
+      depositPercent.addEventListener('change', this.personPercent);
     } else {
       depositBank.style.display = 'none';
       depositAmount.style.display = 'none';
@@ -331,6 +332,7 @@ class AppData {
       depositAmount.value = '';
       this.deposit = false;
       depositBank.removeEventListener('change', this.changePercent);
+      depositPercent.removeEventListener('change', this.personPercent);
     }
   }
 
