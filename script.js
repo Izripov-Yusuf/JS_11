@@ -54,6 +54,12 @@ function inputText() {
 
 function blockStart() {
   start.disabled = !salaryAmount.value.trim();
+  if (depositPercent.value > 100 || depositPercent.value < 0) {
+    start.disabled = depositPercent.value < 0 || depositPercent.value > 100;
+    alert('Введите число не меньше 0 и не больше 100 в поле проценты');
+  } else {
+    start.disabled = false;
+  }
 }
 blockStart();
 
@@ -310,9 +316,9 @@ class AppData {
   }
 
   personPercent() {
-    if (!isNumber(depositPercent.value) || depositPercent.value > 100) {
-      start.disabled = !isNumber(depositPercent.value) || depositPercent.value > 100;
-      alert('Введите корректное значение в поле проценты');
+    if (depositPercent.value > 100 || depositPercent.value < 0) {
+      start.disabled = depositPercent.value < 0 || depositPercent.value > 100;
+      alert('Введите число не меньше 0 и не больше 100 в поле проценты');
     } else {
       start.disabled = false;
     }
@@ -324,7 +330,7 @@ class AppData {
       depositAmount.style.display = 'inline-block';
       this.deposit = true;
       depositBank.addEventListener('change', this.changePercent);
-      depositPercent.addEventListener('change', this.personPercent);
+      depositPercent.addEventListener('input', this.personPercent);
     } else {
       depositBank.style.display = 'none';
       depositAmount.style.display = 'none';
@@ -332,7 +338,7 @@ class AppData {
       depositAmount.value = '';
       this.deposit = false;
       depositBank.removeEventListener('change', this.changePercent);
-      depositPercent.removeEventListener('change', this.personPercent);
+      depositPercent.addEventListener('input', this.personPercent);
     }
   }
 
@@ -389,6 +395,24 @@ class AppData {
 
     targetAmount.addEventListener('input', function () {
       targetAmount.value = targetAmount.value.replace(/[^0-9]/, '');
+    });
+
+    depositPercent.addEventListener('input', function () {
+      let inputValue = depositPercent.value;
+      let reg = /[.:;/a-zA-Zа-яА-Я ]/;
+      if (reg.test(inputValue)) {
+        inputValue = inputValue.replace(reg, '');
+        depositPercent.value = inputValue;
+      }
+    });
+
+    depositAmount.addEventListener('input', function () {
+      let inputValue = depositAmount.value;
+      let reg = /[.:;/a-zA-Zа-яА-Я ]/;
+      if (reg.test(inputValue)) {
+        inputValue = inputValue.replace(reg, '');
+        depositAmount.value = inputValue;
+      }
     });
   }
 }
