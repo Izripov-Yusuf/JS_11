@@ -53,7 +53,11 @@ function inputText() {
 }
 
 function blockStart() {
-  start.disabled = !salaryAmount.value.trim();
+  if (depositPercent.value > 100 || depositPercent.value < 0 || salaryAmount.value.trim() === '') {
+    start.disabled = true;
+  } else {
+    start.disabled = false;
+  }
 }
 blockStart();
 
@@ -309,22 +313,13 @@ class AppData {
     }
   }
 
-  personPercent() {
-    if (depositPercent.value > 100 || depositPercent.value < 0) {
-      start.disabled = depositPercent.value < 0 || depositPercent.value > 100;
-      alert('Введите число не меньше 0 и не больше 100 в поле проценты');
-    } else {
-      start.disabled = false;
-    }
-  }
-
   depositHandler() {
     if (depositCheck.checked) {
       depositBank.style.display = 'inline-block';
       depositAmount.style.display = 'inline-block';
       this.deposit = true;
       depositBank.addEventListener('change', this.changePercent);
-      depositPercent.addEventListener('input', this.personPercent);
+      depositPercent.addEventListener('change', blockStart);
     } else {
       depositBank.style.display = 'none';
       depositAmount.style.display = 'none';
@@ -332,7 +327,7 @@ class AppData {
       depositAmount.value = '';
       this.deposit = false;
       depositBank.removeEventListener('change', this.changePercent);
-      depositPercent.addEventListener('input', this.personPercent);
+      depositPercent.removeEventListener('change', blockStart);
     }
   }
 
