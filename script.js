@@ -55,11 +55,12 @@ function inputText() {
 function blockStart() {
   if (depositPercent.value > 100 || depositPercent.value < 0 || salaryAmount.value.trim() === '') {
     start.disabled = true;
+    alert('Введите число не меньше 0 и не больше 100 в поле проценты и заполните поле Месячный доход');
   } else {
     start.disabled = false;
   }
 }
-blockStart();
+start.disabled = true;
 
 class AppData {
   constructor() {
@@ -319,7 +320,6 @@ class AppData {
       depositAmount.style.display = 'inline-block';
       this.deposit = true;
       depositBank.addEventListener('change', this.changePercent);
-      depositPercent.addEventListener('change', blockStart);
     } else {
       depositBank.style.display = 'none';
       depositAmount.style.display = 'none';
@@ -327,7 +327,6 @@ class AppData {
       depositAmount.value = '';
       this.deposit = false;
       depositBank.removeEventListener('change', this.changePercent);
-      depositPercent.removeEventListener('change', blockStart);
     }
   }
 
@@ -335,6 +334,8 @@ class AppData {
     salaryAmount.addEventListener('input', blockStart);
 
     start.addEventListener('click', this.start.bind(this));
+
+    depositPercent.addEventListener('change', blockStart);
 
     expensesPlus.addEventListener('click', this.addExpensesBlock);
 
