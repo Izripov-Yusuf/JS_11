@@ -54,12 +54,6 @@ function inputText() {
 
 function blockStart() {
   start.disabled = !salaryAmount.value.trim();
-  if (depositPercent.value > 100 || depositPercent.value < 0) {
-    start.disabled = depositPercent.value < 0 || depositPercent.value > 100;
-    alert('Введите число не меньше 0 и не больше 100 в поле проценты');
-  } else {
-    start.disabled = false;
-  }
 }
 blockStart();
 
@@ -103,7 +97,7 @@ class AppData {
     additionalExpensesValue.value = this.addExpenses.join(', ');
     additionalIncomeValue.value = this.addIncome.join(', ');
     targetMonthValue.value = this.getTargetMonth();
-    periodSelect.addEventListener('change', this.calcPeriod.bind(this));
+    periodSelect.addEventListener('input', this.calcPeriod.bind(this));
     this.calcPeriod();
   }
 
@@ -351,13 +345,11 @@ class AppData {
 
     incomePlus.addEventListener('click', this.addIncomeBlock);
 
-    periodSelect.addEventListener('change', this.changeRange);
+    periodSelect.addEventListener('input', this.changeRange);
 
     expensesPlus.addEventListener('click', this.addExpensesBlock);
 
     incomePlus.addEventListener('click', this.addIncomeBlock);
-
-    periodSelect.addEventListener('change', this.changeRange);
 
     depositCheck.addEventListener('change', this.depositHandler.bind(this));
 
@@ -398,21 +390,11 @@ class AppData {
     });
 
     depositPercent.addEventListener('input', function () {
-      let inputValue = depositPercent.value;
-      let reg = /[.:;/a-zA-Zа-яА-Я ]/;
-      if (reg.test(inputValue)) {
-        inputValue = inputValue.replace(reg, '');
-        depositPercent.value = inputValue;
-      }
+      depositPercent.value = depositPercent.value.replace(/[^0-9]/, '');
     });
 
     depositAmount.addEventListener('input', function () {
-      let inputValue = depositAmount.value;
-      let reg = /[.:;/a-zA-Zа-яА-Я ]/;
-      if (reg.test(inputValue)) {
-        inputValue = inputValue.replace(reg, '');
-        depositAmount.value = inputValue;
-      }
+      depositAmount.value = depositAmount.value.replace(/[^0-9]/, '');
     });
   }
 }
