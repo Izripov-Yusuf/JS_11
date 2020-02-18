@@ -44,5 +44,6 @@ window.addEventListener('DOMContentLoaded', function () {
     }
     updateClock();
   }
-  setInterval(countTimer, 1000, '1 february 2020');
+  setInterval(countTimer, 1000, '19 february 2020');
+  countTimer('19 february 2020');
 });
