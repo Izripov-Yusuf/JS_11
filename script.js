@@ -1,6 +1,10 @@
 window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
+  let thisYear = new Date().getFullYear(),
+      thisMonth = new Date().getMonth(),
+      thisDay = new Date().getDate() + 1;
+
   // Таймер
   function countTimer(deadline) {
     let timerHours = document.querySelector('#timer-hours'),
@@ -18,7 +22,7 @@ window.addEventListener('DOMContentLoaded', function () {
       return {timeRemaining, hours, minutes, seconds};
     }
 
-    function checkTime(i) {
+    /* function checkTime(i) {
       if (i < 10 && i > 0) {
         i = "0" + i;
       }
@@ -26,19 +30,32 @@ window.addEventListener('DOMContentLoaded', function () {
         i = "0" + 0;
       }
       return i;
+    } */
+
+    function checkTime(i) {
+      if (i < 10 && i >= 0) {
+        i = "0" + i;
+      }
+      return i;
     }
 
     function updateClock() {
       let timer = getTimeRemaining();
 
-      timerHours.textContent = `${checkTime(timer.hours)}`;
-      timerMinutes.textContent = `${checkTime(timer.minutes)}`;
-      timerSeconds.textContent = `${checkTime(timer.seconds)}`;
+      if (timer.timeRemaining > 0) {
+        timerHours.textContent = `${checkTime(timer.hours)}`;
+        timerMinutes.textContent = `${checkTime(timer.minutes)}`;
+        timerSeconds.textContent = `${checkTime(timer.seconds)}`;
+      } else {
+        return countTimer(new Date(deadline).getTime() + 86400000);
+      }
 
     }
     setInterval(updateClock, 1000);
     updateClock();
   }
-
-  countTimer('18 february 2020');
+  countTimer(new Date(thisYear, thisMonth, thisDay));
+  if (countTimer(new Date(thisYear, thisMonth, thisDay)) === 0) {
+    countTimer(new Date(thisYear, thisMonth, thisDay));
+  }
 });
