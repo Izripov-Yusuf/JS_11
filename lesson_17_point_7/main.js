@@ -3,16 +3,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
   let date = new Date(),
     weekday = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-    day = date.getDate(),
-    year = date.getFullYear(),
     hours = date.getHours(),
-    //hours = Math.floor(date.getHours() / 2),
-    minutes = date.getMinutes(),
-    seconds = date.getSeconds(),
     fullTime = date.toLocaleTimeString('en'),
-    timerHours = document.querySelector('#timer-hours'),
-    timerMinutes = document.querySelector('#timer-minutes'),
-    timerSeconds = document.querySelector('#timer-seconds'),
     toDay = Date.now();
     let newYear = (Date.parse('1 january 2021')) - toDay;
     let daysForNewYear = Math.floor(newYear / 60 / 60 / 24 / 1000 + 1);
@@ -67,9 +59,7 @@ window.addEventListener('DOMContentLoaded', function () {
     return dayHi;
   }
   let dayHi2 = checkHoursDay();
-  console.log('dayHi2: ', dayHi2);
 
-  //document.write('Сегодня ' + `${weekday[date.getDay()]},<br> ` + `${day} ` + month[date.getMonth()] + ` ${year} года, ` + `${checkTime(hours)} ${num3str(checkTime(hours), ['часа', 'час', 'часов'])} ` + `${checkTime(minutes)} ${num3str(checkTime(minutes), ['минуты', 'минута', 'минут'])} ` + `${checkTime(seconds)} ${num3str(checkTime(seconds), ['секунды', 'секунда', 'секунд'])}`);
   document.write(`${`${dayHi2} ` + goodDay2}<br>` +
   'Сегодня: ' + `${weekday[date.getDay()]}<br>` +
   'Текущее время: ' + `${fullTime}<br>` +

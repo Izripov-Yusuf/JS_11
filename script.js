@@ -15,12 +15,7 @@ window.addEventListener('DOMContentLoaded', function () {
         minutes = Math.floor((timeRemaining / 60) % 60),
         hours = Math.floor(timeRemaining / 60 / 60);
       // day = Math.floor(timeRemaining / 60 / 60 / 24)
-      return {
-        timeRemaining,
-        hours,
-        minutes,
-        seconds
-      };
+      return {timeRemaining, hours, minutes, seconds};
     }
 
     function checkTime(i) {

@@ -10,28 +10,15 @@ window.addEventListener('DOMContentLoaded', function () {
     function getTimeRemaining() {
       let dateStop = new Date(deadline).getTime(),
         dateNow = new Date().getTime(),
-        timeRemaining = (dateStop - dateNow) / 1000;
-
-      function getNewTimeRemaining() {
-        if (timeRemaining <= 0) {
-          timeRemaining = 86400;
-        }
-        return timeRemaining;
-      }
-      getNewTimeRemaining();
-      let seconds = Math.floor(timeRemaining % 60),
+        timeRemaining = (dateStop - dateNow) / 1000,
+        seconds = Math.floor(timeRemaining % 60),
         minutes = Math.floor((timeRemaining / 60) % 60),
         hours = Math.floor(timeRemaining / 60 / 60);
       // day = Math.floor(timeRemaining / 60 / 60 / 24)
-      return {
-        timeRemaining,
-        hours,
-        minutes,
-        seconds
-      };
+      return {timeRemaining, hours, minutes, seconds};
     }
 
-    /* function checkTime(i) {
+    function checkTime(i) {
       if (i < 10 && i > 0) {
         i = "0" + i;
       }
@@ -39,14 +26,14 @@ window.addEventListener('DOMContentLoaded', function () {
         i = "0" + 0;
       }
       return i;
-    } */
+    }
 
-    function checkTime(i) {
+    /* function checkTime(i) {
       if (i < 10 && i >= 0) {
         i = "0" + i;
       }
       return i;
-    }
+    } */
 
     function updateClock() {
       let timer = getTimeRemaining();
