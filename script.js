@@ -48,7 +48,20 @@ window.addEventListener('DOMContentLoaded', function () {
     const btnMenu = document.querySelector('.menu'),
       menu = document.querySelector('menu'),
       closeBtn = document.querySelector('.close-btn'),
-      menuItems = menu.querySelectorAll('ul>li');
+      menuItems = menu.querySelectorAll('ul>li'),
+      menuList = menu.querySelector('ul'),
+      menuAnchors = menuList.querySelectorAll('a[href^="#"]');
+
+      for (let anchor of menuAnchors) {
+        anchor.addEventListener('click', (event) => {
+          event.preventDefault();
+          const blockId = anchor.getAttribute('href');
+          document.querySelector(blockId).scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        });
+      }
 
       const handlerMenu = () => {
         menu.classList.toggle('active-menu');
@@ -61,15 +74,7 @@ window.addEventListener('DOMContentLoaded', function () {
     menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
   };
   toggleMenu();
-
-  //popup
-  /* const handlerMenu = () => {
-      if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
-        menu.style.transform = `translate(0)`;
-      } else {
-        menu.style.transform = `translate(-100%)`;
-      }
-    }; */
+  // Popup
   const togglePopup = () => {
     let popupInterval,
         count = 0,
@@ -108,4 +113,15 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   };
   togglePopup();
+  // Кнопка перехода к следующему слайду
+  let buttonDown = document.querySelector('a[href="#service-block"]');
+
+  buttonDown.addEventListener('click', (event) => {
+    event.preventDefault();
+    const buttonDownId = buttonDown.getAttribute('href');
+    document.querySelector(buttonDownId).scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  });
 });
