@@ -82,7 +82,7 @@ window.addEventListener('DOMContentLoaded', function () {
           }
         });
       } else if (target !== menu) {
-        handlerMenu();
+        menu.classList.remove('active-menu');
       }
     });
   };
