@@ -46,34 +46,68 @@ window.addEventListener('DOMContentLoaded', function () {
   const toggleMenu = () => {
 
     const btnMenu = document.querySelector('.menu'),
-      menu = document.querySelector('menu'),
-      closeBtn = document.querySelector('.close-btn'),
-      menuItems = menu.querySelectorAll('ul>li'),
-      menuList = menu.querySelector('ul'),
-      menuAnchors = menuList.querySelectorAll('a[href^="#"]');
+          btnMenuImg = btnMenu.querySelector('img'),
+          menu = document.querySelector('menu'),
+          closeBtn = document.querySelector('.close-btn'),
+          menuItems = menu.querySelectorAll('ul>li'),
+          menuList = menu.querySelector('ul'),
+          menuListLinks = menuList.querySelectorAll('a'),
+          menuAnchors = menuList.querySelectorAll('a[href^="#"]'),
+          body = document.querySelector('body');
 
-      for (let anchor of menuAnchors) {
-        anchor.addEventListener('click', (event) => {
-          event.preventDefault();
-          const blockId = anchor.getAttribute('href');
-          document.querySelector(blockId).scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        });
+    const handlerMenu = () => {
+      menu.classList.toggle('active-menu');
+    };
+
+    const scrollToBlock = (index) => {
+      for (let i = 0; i < menuListLinks.length; i++) {
+        if (index === i) {
+          handlerMenu();
+        }
       }
+    };
 
-      const handlerMenu = () => {
-        menu.classList.toggle('active-menu');
-      };
+    body.addEventListener('click', (event) => {
+      let target = event.target,
+          parent = target.parentNode;
 
-    btnMenu.addEventListener('click', handlerMenu);
-
-    closeBtn.addEventListener('click', handlerMenu);
-    
-    menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+      if (target === btnMenuImg) {
+        handlerMenu();
+      } else if (target === closeBtn) {
+        handlerMenu();
+      } else if (parent.tagName === 'LI') {
+        menuListLinks.forEach((item, i) => {
+          if (item === target) {
+            scrollToBlock(i);
+          }
+        });
+      } else if (target !== menu) {
+        handlerMenu();
+      }
+    });
   };
   toggleMenu();
+
+  // Плавное перемещение по якорям
+  const smoothScrollToBlock = () => {
+
+    const menu = document.querySelector('menu'),
+          menuList = menu.querySelector('ul'),
+          menuAnchors = menuList.querySelectorAll('a[href^="#"]');
+
+    for (let anchor of menuAnchors) {
+      anchor.addEventListener('click', (event) => {
+        event.preventDefault();
+        const blockId = anchor.getAttribute('href');
+        document.querySelector(blockId).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+    }
+  };
+  smoothScrollToBlock();
+
   // Popup
   const togglePopup = () => {
     let popupInterval,
@@ -81,13 +115,12 @@ window.addEventListener('DOMContentLoaded', function () {
         userWidth = window.innerWidth;
     const popup = document.querySelector('.popup'),
           popupBtn = document.querySelectorAll('.popup-btn'),
-          popupClose = document.querySelector('.popup-close'),
           popupBlock = document.querySelector('.popup-content');
 
     const popupAnimation = () => {
       popupInterval = requestAnimationFrame(popupAnimation);
       count++;
-      if (count <= 38) {
+      if (count <= 41) {
         popupBlock.style.left = count + '%';
       } else {
         cancelAnimationFrame(popupInterval);
@@ -108,14 +141,23 @@ window.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    popupClose.addEventListener('click', () => {
-      popup.style.display = 'none';
+    popup.addEventListener('click', (event) =>{
+      let target = event.target;
+      if (target.classList.contains('popup-close')) {
+        popup.style.display = 'none';
+      } else {
+        target = target.closest('.popup-content');
+        if (!target) {
+          popup.style.display = 'none';
+        }
+      }
     });
+
   };
   togglePopup();
+
   // Кнопка перехода к следующему слайду
   let buttonDown = document.querySelector('a[href="#service-block"]');
-
   buttonDown.addEventListener('click', (event) => {
     event.preventDefault();
     const buttonDownId = buttonDown.getAttribute('href');
@@ -124,4 +166,38 @@ window.addEventListener('DOMContentLoaded', function () {
       block: 'start'
     });
   });
+
+  // Табы
+  const tabs = () => {
+    const tabHeader = document.querySelector('.service-header'),
+          tab = tabHeader.querySelectorAll('.service-header-tab'),
+          tabContent = document.querySelectorAll('.service-tab');
+
+    const toggleTabContent = (index) => {
+      for(let i = 0; i < tabContent.length; i++) {
+        if (index === i) {
+          tab[i].classList.add('active');
+          tabContent[i].classList.remove('d-none');
+        } else {
+          tab[i].classList.remove('active');
+          tabContent[i].classList.add('d-none');
+        }
+      }
+    };
+
+    tabHeader.addEventListener('click', (event) => {
+      let target = event.target;
+
+      target = target.closest('.service-header-tab');
+
+      if (target) {
+        tab.forEach((item, i) => {
+          if (item === target) {
+            toggleTabContent(i);
+          }
+        });
+      }
+    });
+  };
+  tabs();
 });
