@@ -318,6 +318,14 @@ window.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
+
+    commandWrap.addEventListener('mouseout', (event) => {
+      let target = event.target;
+      if (target.matches('img')) {
+        let stockSrc = target.src;
+        target.src = stockSrc;
+      }
+    });
   };
   changeImg();
 
