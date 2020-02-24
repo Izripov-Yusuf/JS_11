@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', function () {
         minutes = Math.floor((timeRemaining / 60) % 60),
         hours = Math.floor(timeRemaining / 60 / 60);
       // day = Math.floor(timeRemaining / 60 / 60 / 24)
-      return {timeRemaining, hours, minutes, seconds};
+      return { timeRemaining, hours, minutes, seconds };
     }
 
     function checkTime(i) {
@@ -46,14 +46,14 @@ window.addEventListener('DOMContentLoaded', function () {
   const toggleMenu = () => {
 
     const btnMenu = document.querySelector('.menu'),
-          btnMenuImg = btnMenu.querySelector('img'),
-          menu = document.querySelector('menu'),
-          closeBtn = document.querySelector('.close-btn'),
-          menuItems = menu.querySelectorAll('ul>li'),
-          menuList = menu.querySelector('ul'),
-          menuListLinks = menuList.querySelectorAll('a'),
-          menuAnchors = menuList.querySelectorAll('a[href^="#"]'),
-          body = document.querySelector('body');
+      btnMenuImg = btnMenu.querySelector('img'),
+      menu = document.querySelector('menu'),
+      closeBtn = document.querySelector('.close-btn'),
+      menuItems = menu.querySelectorAll('ul>li'),
+      menuList = menu.querySelector('ul'),
+      menuListLinks = menuList.querySelectorAll('a'),
+      menuAnchors = menuList.querySelectorAll('a[href^="#"]'),
+      body = document.querySelector('body');
 
     const handlerMenu = () => {
       menu.classList.toggle('active-menu');
@@ -69,7 +69,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     body.addEventListener('click', (event) => {
       let target = event.target,
-          parent = target.parentNode;
+        parent = target.parentNode;
 
       if (target === btnMenuImg) {
         handlerMenu();
@@ -92,8 +92,8 @@ window.addEventListener('DOMContentLoaded', function () {
   const smoothScrollToBlock = () => {
 
     const menu = document.querySelector('menu'),
-          menuList = menu.querySelector('ul'),
-          menuAnchors = menuList.querySelectorAll('a[href^="#"]');
+      menuList = menu.querySelector('ul'),
+      menuAnchors = menuList.querySelectorAll('a[href^="#"]');
 
     for (let anchor of menuAnchors) {
       anchor.addEventListener('click', (event) => {
@@ -111,23 +111,24 @@ window.addEventListener('DOMContentLoaded', function () {
   // Popup
   const togglePopup = () => {
     let popupInterval,
-        count = 0,
-        userWidth = window.innerWidth;
+      count = 0,
+      userWidth = window.innerWidth;
     const popup = document.querySelector('.popup'),
-          popupBtn = document.querySelectorAll('.popup-btn'),
-          popupBlock = document.querySelector('.popup-content');
+      popupBtn = document.querySelectorAll('.popup-btn'),
+      popupBlock = document.querySelector('.popup-content');
 
     const popupAnimation = () => {
       popupInterval = requestAnimationFrame(popupAnimation);
-      count++;
-      if (count <= 41) {
-        popupBlock.style.left = count + '%';
+      count += 15;
+      if (count <= (((document.documentElement.clientWidth - popupBlock.scrollWidth) / 2) + 15)) {
+        popupBlock.style.left = count + 'px';
+        popupBlock.style.transform = 'translateX(0px)';
       } else {
         cancelAnimationFrame(popupInterval);
         count = 0;
       }
     };
-    
+
     popupBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
         popup.style.display = 'block';
@@ -141,7 +142,7 @@ window.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    popup.addEventListener('click', (event) =>{
+    popup.addEventListener('click', (event) => {
       let target = event.target;
       if (target.classList.contains('popup-close')) {
         popup.style.display = 'none';
@@ -170,11 +171,11 @@ window.addEventListener('DOMContentLoaded', function () {
   // Табы
   const tabs = () => {
     const tabHeader = document.querySelector('.service-header'),
-          tab = tabHeader.querySelectorAll('.service-header-tab'),
-          tabContent = document.querySelectorAll('.service-tab');
+      tab = tabHeader.querySelectorAll('.service-header-tab'),
+      tabContent = document.querySelectorAll('.service-tab');
 
     const toggleTabContent = (index) => {
-      for(let i = 0; i < tabContent.length; i++) {
+      for (let i = 0; i < tabContent.length; i++) {
         if (index === i) {
           tab[i].classList.add('active');
           tabContent[i].classList.remove('d-none');
@@ -209,18 +210,18 @@ window.addEventListener('DOMContentLoaded', function () {
 
     let dot;
 
-      const createDots = () => {
-        for (let i = 0; i < slide.length; i++) {
-          dot = document.createElement('li');
-          dot.classList.add('dot');
-          dotsList.appendChild(dot);
-        }
-      };
-      createDots();
+    const createDots = () => {
+      for (let i = 0; i < slide.length; i++) {
+        dot = document.createElement('li');
+        dot.classList.add('dot');
+        dotsList.appendChild(dot);
+      }
+    };
+    createDots();
 
     let currentSlide = 0,
-        interval;
-    
+      interval;
+
     dot = document.querySelectorAll('.dot');
     dot[0].classList.add('dot-active');
 
@@ -287,7 +288,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     slider.addEventListener('mouseover', (event) => {
       if (event.target.matches('.portfolio-btn') ||
-          event.target.matches('.dot')) {
+        event.target.matches('.dot')) {
         stopSlide();
       }
     });
@@ -302,4 +303,31 @@ window.addEventListener('DOMContentLoaded', function () {
     startSlide(1500);
   };
   slider();
+
+  // Заменяем картинки в блоке "наша команда" с помощью data атрибутов
+  const changeImg = () => {
+    const commandWrap = document.querySelector('div#command>div.container>div.row');
+
+    commandWrap.addEventListener('mouseover', (event) => {
+      let target = event.target;
+      if (target.matches('img')) {
+        let stockSrc = target.src;
+        target.src = target.dataset.img;
+        target.addEventListener('mouseout', () => {
+          target.src = stockSrc;
+        });
+      }
+    });
+  };
+  changeImg();
+
+  //Валидация калькулятора
+  const calcValidation = () => {
+    const calcBlock = document.querySelector('.calc-block');
+    calcBlock.addEventListener('input', (event) => {
+      let target = event.target;
+      target.value = target.value.replace(/[^0-9]/, '');
+    });
+  };
+  calcValidation();
 });
