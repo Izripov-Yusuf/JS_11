@@ -418,10 +418,6 @@ window.addEventListener('DOMContentLoaded', function () {
           loadMessage = 'Загрузка...',
           successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-    const form = document.getElementById('form1'),
-          popupForm = document.getElementById('form3'),
-          lastForm = document.getElementById('form2');
-
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 2rem; color: white;';
 
@@ -444,76 +440,33 @@ window.addEventListener('DOMContentLoaded', function () {
       request.send(JSON.stringify(body));
     };
 
-    // Отправка данных из первой формы
-    form.addEventListener('submit', (event) => {
+
+    let body = document.querySelector('body');
+
+    body.addEventListener('submit', (event) => {
+      let target = event.target;
       event.preventDefault();
-      form.appendChild(statusMessage);
-      statusMessage.textContent = loadMessage;
+      if (target.matches('form')) {
+        target.appendChild(statusMessage);
+        statusMessage.textContent = loadMessage;
 
-      const formData = new FormData(form);
-      let body = {};
+        const formData = new FormData(target);
+        let body = {};
 
-      formData.forEach((value, key) => {
-        body[key] = value;
-      });
-      postData(body, () => {
-        for (let i = 0; i < form.elements.length; i++) {
-          form.elements[i].style.cssText = 'border: none !important;';
-        }
-        form.reset();
-        statusMessage.textContent = successMessage;
-      }, (error) => {
-        statusMessage.textContent = errorMessage;
-        console.log(error);
-      });
-    });
-
-    // Отправка данных из модалки
-    popupForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      popupForm.appendChild(statusMessage);
-      statusMessage.textContent = loadMessage;
-
-      const formData = new FormData(popupForm);
-      let body = {};
-
-      formData.forEach((value, key) => {
-        body[key] = value;
-      });
-      postData(body, () => {
-        for (let i = 0; i < popupForm.elements.length; i++) {
-          popupForm.elements[i].style.cssText = 'border: none !important;';
-        }
-        popupForm.reset();
-        statusMessage.textContent = successMessage;
-      }, (error) => {
-        statusMessage.textContent = errorMessage;
-        console.log(error);
-      });
-    });
-
-    // Отправка данных из последней формы
-    lastForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      lastForm.appendChild(statusMessage);
-      statusMessage.textContent = loadMessage;
-
-      const formData = new FormData(lastForm);
-      let body = {};
-
-      formData.forEach((value, key) => {
-        body[key] = value;
-      });
-      postData(body, () => {
-        for (let i = 0; i < lastForm.elements.length; i++) {
-          lastForm.elements[i].style.cssText = 'border: none !important;';
-        }
-        lastForm.reset();
-        statusMessage.textContent = successMessage;
-      }, (error) => {
-        statusMessage.textContent = errorMessage;
-        console.log(error);
-      });
+        formData.forEach((value, key) => {
+          body[key] = value;
+        });
+        postData(body, () => {
+          for (let i = 0; i < target.elements.length; i++) {
+            target.elements[i].style.cssText = 'border: none !important;';
+          }
+          target.reset();
+          statusMessage.textContent = successMessage;
+        }, (error) => {
+          statusMessage.textContent = errorMessage;
+          console.log(error);
+        });
+      }
     });
   };
   sendForm();
