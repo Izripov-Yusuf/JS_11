@@ -418,21 +418,118 @@ window.addEventListener('DOMContentLoaded', function () {
           loadMessage = 'Загрузка...',
           successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-    const form = document.getElementById('form1');
+    const form = document.getElementById('form1'),
+          popupForm = document.getElementById('form3'),
+          lastForm = document.getElementById('form2');
 
     const statusMessage = document.createElement('div');
-    statusMessage.style.cssText = 'font-size: 2rem;';
+    statusMessage.style.cssText = 'font-size: 2rem; color: white;';
 
+    const postData = (body, outputData, errorData) => {
+      const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', () => {
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          outputData();
+        } else {
+          errorData(request.status);
+        }
+      });
+
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'application/json');
+
+      request.send(JSON.stringify(body));
+    };
+
+    // Отправка данных из первой формы
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       form.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
 
-      const request = new XMLHttpRequest();
-      request.open('POST', './server.php');
-      request.setRequestHeader('Content-Type', 'multipart/form-data');
       const formData = new FormData(form);
-      request.send(formData);
+      let body = {};
+
+      formData.forEach((value, key) => {
+        body[key] = value;
+      });
+      postData(body, () => {
+        for (let i = 0; i < form.elements.length; i++) {
+          form.elements[i].style.cssText = 'border: none !important;';
+        }
+        form.reset();
+        statusMessage.textContent = successMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.log(error);
+      });
+    });
+
+    // Отправка данных из модалки
+    popupForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      popupForm.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
+
+      const formData = new FormData(popupForm);
+      let body = {};
+
+      formData.forEach((value, key) => {
+        body[key] = value;
+      });
+      postData(body, () => {
+        for (let i = 0; i < popupForm.elements.length; i++) {
+          popupForm.elements[i].style.cssText = 'border: none !important;';
+        }
+        popupForm.reset();
+        statusMessage.textContent = successMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.log(error);
+      });
+    });
+
+    // Отправка данных из последней формы
+    lastForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      lastForm.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
+
+      const formData = new FormData(lastForm);
+      let body = {};
+
+      formData.forEach((value, key) => {
+        body[key] = value;
+      });
+      postData(body, () => {
+        for (let i = 0; i < lastForm.elements.length; i++) {
+          lastForm.elements[i].style.cssText = 'border: none !important;';
+        }
+        lastForm.reset();
+        statusMessage.textContent = successMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.log(error);
+      });
     });
   };
   sendForm();
+
+  // Валидация инпутов
+  const inputValidation = () => {
+    const body = document.querySelector('body');
+    body.addEventListener('input', (event) => {
+      let target = event.target;
+      if (target.matches('input[name="user_phone"]')) {
+        target.value = target.value.replace(/[^\+\d]/g, '');
+      }
+      if (target.matches('input[name="user_name"]') || target.matches('input[name="user_message"]')) {
+        target.value = target.value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+      }
+    });
+  };
+  inputValidation();
 });
