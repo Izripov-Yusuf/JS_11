@@ -356,7 +356,8 @@ window.addEventListener('DOMContentLoaded', function () {
             countValue = 1,
             dayValue = 1,
             count = 0,
-            totalId;
+            totalId,
+            totalInterval;
         const typeValue = calcType.options[calcType.selectedIndex].value,
               squareValue = +calcSquare.value;
 
@@ -375,6 +376,25 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
         totalValue.textContent = total;
+        /* const totalAnimation = () => {
+          totalValue.textContent = count;
+          totalInterval = requestAnimationFrame(totalAnimation);
+          if (count < total) {
+            count += 10;
+          } else {
+            cancelAnimationFrame(totalInterval);
+            count = 0;
+          }
+        };
+        target.addEventListener('change', () => {
+          totalValue.textContent = count;
+          if (target) {
+            totalInterval = requestAnimationFrame(totalAnimation);
+          } else {
+            cancelAnimationFrame(totalInterval);
+          }
+        }); */
+
         const foo = () => {
           totalValue.textContent = count;
           if (count < total) {
@@ -391,4 +411,28 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   };
   calc(100);
+
+  // send-ajax-form
+  const sendForm = () => {
+    const errorMessage = 'Что-то пошло не так...',
+          loadMessage = 'Загрузка...',
+          successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+    const form = document.getElementById('form1');
+
+    const statusMessage = document.createElement('div');
+    statusMessage.style.cssText = 'font-size: 2rem;';
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.appendChild(statusMessage);
+
+      const request = new XMLHttpRequest();
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'multipart/form-data');
+      const formData = new FormData(form);
+      request.send(formData);
+    });
+  };
+  sendForm();
 });

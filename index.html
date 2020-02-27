@@ -411,7 +411,41 @@
 		</div>
 	</div>
 </div>
+<!-- <script src="plugins/validator/validator.js"></script>
+<script>
+  const valid = new Validator({
+    selector: '#form1',
+    pattern: {
+      rus: /[а-яА-Я,.!?"';: ]/
+    },
+    method: {
+      'form1-name': [
+        ['notEmpty'],
+        ['pattern', 'rus']
+      ]
+    }
+  });
 
+  valid.init();
+
+  const valid2 = new Validator({
+    selector: '#form2',
+    pattern: {
+      rus: /[а-яА-Я,.!?"';: ]/
+    },
+    method: {
+      'form2-name': [
+        ['notEmpty'],
+        ['pattern', 'rus']
+      ],
+      'form2-message': [
+        ['notEmpty'],
+        ['pattern', 'rus']
+      ]
+    }
+  });
+  valid2.init();
+</script> -->
 <script src="script.js"></script>
 </body>
 </html>
