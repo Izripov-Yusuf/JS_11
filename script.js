@@ -444,9 +444,15 @@ window.addEventListener('DOMContentLoaded', function () {
     let body = document.querySelector('body');
 
     body.addEventListener('submit', (event) => {
-      let target = event.target;
       event.preventDefault();
+      let target = event.target;
       if (target.matches('form')) {
+        let allInputs = target.querySelectorAll('input');
+        for (let i = 0; i < allInputs.length; i++) {
+          if (allInputs[i].value === '') {
+            return;
+          }
+        }
         target.appendChild(statusMessage);
         statusMessage.textContent = loadMessage;
 
@@ -457,9 +463,6 @@ window.addEventListener('DOMContentLoaded', function () {
           body[key] = value;
         });
         postData(body, () => {
-          for (let i = 0; i < target.elements.length; i++) {
-            target.elements[i].style.cssText = 'border: none !important;';
-          }
           target.reset();
           statusMessage.textContent = successMessage;
         }, (error) => {
