@@ -375,35 +375,32 @@ window.addEventListener('DOMContentLoaded', function () {
           total = price * typeValue * squareValue * countValue * dayValue;
         }
 
-        totalValue.textContent = total;
-        /* const totalAnimation = () => {
-          totalValue.textContent = count;
-          totalInterval = requestAnimationFrame(totalAnimation);
-          if (count < total) {
-            count += 10;
-          } else {
-            cancelAnimationFrame(totalInterval);
-            count = 0;
-          }
-        };
-        target.addEventListener('change', () => {
-          totalValue.textContent = count;
-          if (target) {
-            totalInterval = requestAnimationFrame(totalAnimation);
-          } else {
-            cancelAnimationFrame(totalInterval);
-          }
-        }); */
+        function animate(draw, duration = 1000) {
+          let start = performance.now();
 
-        const foo = () => {
-          totalValue.textContent = count;
-          if (count < total) {
-            count++;
-          } else {
-            clearInterval(totalId);
+          function step(time) {
+            let progress = (time - start) / duration;
+            if (progress > 1) {
+              progress = 1;
+            }
+            draw(progress);
+
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            }
+
           }
-        };
-        totalId = setInterval(foo, 0.1);
+          requestAnimationFrame(step);
+        }
+
+        function animateRes(start, total) {
+          let to = total,
+            from = start;
+          animate(
+            (progress) => { totalValue.textContent = Math.ceil((to - from) * progress + from); }
+          );
+        }
+        animateRes(+totalValue.textContent, Math.ceil(total));
       };
       if (target.matches('select') || target.matches('input')) {
         countSum();
