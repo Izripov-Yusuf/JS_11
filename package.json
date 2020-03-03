@@ -1,0 +1,24 @@
+{
+  "name": "Lesson1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Izripov-Yusuf/JS_11.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Izripov-Yusuf/JS_11/issues"
+  },
+  "homepage": "https://github.com/Izripov-Yusuf/JS_11#readme",
+  "devDependencies": {
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
