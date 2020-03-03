@@ -41,5 +41,4 @@ function countTimer(deadline) {
   }
   updateClock();
 }
-setInterval(countTimer, 1000, '19 february 2020');
 export default countTimer;

@@ -1,5 +1,13 @@
 'use strict';
-
+import "@babel/polyfill";
+import 'nodelist-foreach-polyfill';
+import elementClosest from 'element-closest';
+elementClosest(window);
+import 'formdata-polyfill';
+import 'es6-promise';
+import 'fetch-polyfill';
+import smoothscroll from 'smoothscroll-polyfill';
+smoothscroll.polyfill();
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
 import smoothScrollToBlock from './modules/smoothScrollToBlock';
@@ -14,7 +22,8 @@ import sendForm from './modules/sendForm';
 import inputValidation from './modules/inputValidation';
 
 // Таймер
-countTimer();
+setInterval(countTimer, 1000, '19 february 2020');
+countTimer('19 february 2020');
 // Меню
 toggleMenu();
 // Плавное перемещение по якорям
