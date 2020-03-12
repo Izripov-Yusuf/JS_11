@@ -13,6 +13,7 @@ import dropdownClub from './modules/dropdownClub';
 import freeVisitModal from './modules/freeVisitModal';
 import callbackModal from './modules/callbackModal';
 import sendForm from './modules/sendForm';
+import giftModal from './modules/giftModal';
 
 // Бургер меню
 burgerMenu();
@@ -24,3 +25,5 @@ freeVisitModal();
 callbackModal();
 // Отправка данных из модальных форм
 sendForm();
+// Модальное окно подарка
+giftModal();
