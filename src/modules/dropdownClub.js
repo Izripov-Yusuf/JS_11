@@ -4,7 +4,12 @@ const dropdownClub = () => {
   const dropdownListItem = dropdownList.querySelectorAll('.dropdown-list__item');
   const clubSelect = document.querySelector('.club-select');
 
-  clubSelect.addEventListener('click', () => {
+  clubSelect.addEventListener('click', (event) => {
+    let target = event.target;
+    console.log('target: ', target);
+    if (target === dropdownList || target === dropdownListItem[0] || target === dropdownListItem[1]) {
+      return;
+    }
     dropdownList.classList.toggle('dropdown-list--active');
     for (let i = 0; i < dropdownListItem.length; i++) {
       dropdownListItem[i].classList.toggle('dropdown-list__item--active');
