@@ -2078,7 +2078,14 @@ footer .footer-bottom .right .socials .social-icon:hover a {
 }
 
 .popup {
-  display: none
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%
 }
 
 .popup .overlay {

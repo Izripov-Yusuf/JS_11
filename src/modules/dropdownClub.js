@@ -1,8 +1,8 @@
 const dropdownClub = () => {
   
-  const dropdownList = document.getElementById('dropdown-list');
-  const dropdownListItem = dropdownList.querySelectorAll('.dropdown-list__item');
-  const clubSelect = document.querySelector('.club-select');
+  const dropdownList = document.getElementById('dropdown-list'),
+        dropdownListItem = dropdownList.querySelectorAll('.dropdown-list__item'),
+        clubSelect = document.querySelector('.club-select');
 
   clubSelect.addEventListener('click', (event) => {
     let target = event.target;

@@ -10,12 +10,17 @@ import smoothscroll from 'smoothscroll-polyfill';
 smoothscroll.polyfill();
 import burgerMenu from './modules/burgerMenu';
 import dropdownClub from './modules/dropdownClub';
-import freeVisit from './modules/freeVisit';
-
+import freeVisitModal from './modules/freeVisitModal';
+import callbackModal from './modules/callbackModal';
+import sendForm from './modules/sendForm';
 
 // Бургер меню
 burgerMenu();
 // Выпадающее меню
 dropdownClub();
 // Модальное окно бесплатный визит
-freeVisit();
+freeVisitModal();
+// Модальное окно перезвона
+callbackModal();
+// Отправка данных из модальных форм
+sendForm();
