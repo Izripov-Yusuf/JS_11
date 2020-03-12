@@ -14,6 +14,7 @@ import freeVisitModal from './modules/freeVisitModal';
 import callbackModal from './modules/callbackModal';
 import sendForm from './modules/sendForm';
 import giftModal from './modules/giftModal';
+import mainSlider from './modules/mainSlider';
 
 // Бургер меню
 burgerMenu();
@@ -27,3 +28,5 @@ callbackModal();
 sendForm();
 // Модальное окно подарка
 giftModal();
+// Главный слайдер
+mainSlider();
