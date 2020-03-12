@@ -9,5 +9,10 @@ import 'fetch-polyfill';
 import smoothscroll from 'smoothscroll-polyfill';
 smoothscroll.polyfill();
 import burgerMenu from './modules/burgerMenu';
+import dropdownClub from './modules/dropdownClub';
 
+
+// Бургер меню
 burgerMenu();
+// Выпадающее меню
+dropdownClub();
