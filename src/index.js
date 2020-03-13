@@ -16,6 +16,7 @@ import sendForm from './modules/sendForm';
 import giftModal from './modules/giftModal';
 import mainSlider from './modules/mainSlider';
 import photoGallery from './modules/photoGallery';
+import sliderCarouselOOP from './modules/sliderCarouselOOP';
 
 // Бургер меню
 burgerMenu();
@@ -33,3 +34,27 @@ giftModal();
 mainSlider();
 // Фотогалерея
 photoGallery();
+/* // Слайдер-карусель
+sliderCarouselOOP(); */
+
+  const carousel = new SliderCarousel({
+    main: '.wrapper',
+    wrap: '.services-slider',
+    slidesToShow: 5,
+    infinity: true,
+    responsive: [{
+        breackpoint: 1024,
+        slideToShow: 3,
+      },
+      {
+        breackpoint: 768,
+        slideToShow: 2,
+      },
+      {
+        breackpoint: 576,
+        slideToShow: 1,
+      },
+    ]
+  });
+
+carousel.init();

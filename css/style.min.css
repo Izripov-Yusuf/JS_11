@@ -1561,10 +1561,35 @@ nav.popup-menu .close-menu-btn img {
 }
 
 .services-slider {
+  position: relative;
   display: flex;
   margin: 0 auto;
   padding-left: 15px;
   padding-right: 15px
+}
+
+.services-slider .services-btn {
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #ffd11a;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.services-slider .prev {
+  left: 20px;
+  background-image: url(../images/arrow-left.png);
+  background-position: 45% 50%;
+}
+
+.services-slider .next {
+  right: 20px;
+  background-image: url(../images/arrow-right.png);
+  background-position: 55% 50%;
 }
 
 .services-slider .slide {
