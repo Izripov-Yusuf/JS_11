@@ -37,17 +37,20 @@ const burgerMenu = () => {
     }
   });
 
-  if (window.innerWidth < 768) {
-    window.addEventListener('scroll', () => {
-      let headBottom = Math.ceil(head.getBoundingClientRect().bottom);
 
-      if (headBottom <= 0) {
-        stickyMenu.style.position = 'fixed';
-      } else if (headBottom > 0) {
-        stickyMenu.style.position = '';
-      }
-    });
-  }
+  window.addEventListener('resize', () => {
+    if (window.innerWidth < 768) {
+      window.addEventListener('scroll', () => {
+        let headBottom = Math.ceil(head.getBoundingClientRect().bottom);
+
+        if (headBottom <= 0) {
+          stickyMenu.style.position = 'fixed';
+        } else if (headBottom > 0) {
+          stickyMenu.style.position = '';
+        }
+      });
+    }
+  });
 };
 
 export default burgerMenu;
