@@ -16,6 +16,7 @@ import sendForm from './modules/sendForm';
 import giftModal from './modules/giftModal';
 import mainSlider from './modules/mainSlider';
 import photoGallery from './modules/photoGallery';
+import arrowUp from './modules/arrowUp';
 
 // Бургер меню
 burgerMenu();
@@ -33,6 +34,8 @@ giftModal();
 mainSlider();
 // Фотогалерея
 photoGallery();
+// Появление стрелки вверх
+arrowUp();
 
 import SliderCarousel from './modules/SliderCarousel';
 const carousel = new SliderCarousel({

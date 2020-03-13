@@ -38,21 +38,23 @@ const burgerMenu = () => {
   });
 
 
-  window.addEventListener('resize', () => {
-    if (window.innerWidth < 768) {
-      window.addEventListener('scroll', () => {
-        let headBottom = Math.ceil(head.getBoundingClientRect().bottom);
+  const scrollMenu = () => {
 
-        if (headBottom <= 0) {
-          stickyMenu.style.position = 'fixed';
-        } else if (headBottom > 0) {
-          stickyMenu.style.position = '';
-        }
-      });
+    if (window.innerWidth < 768) {
+      let headBottom = Math.ceil(head.getBoundingClientRect().bottom);
+
+      if (headBottom <= 0) {
+        stickyMenu.style.position = 'fixed';
+      } else if (headBottom > 0) {
+        stickyMenu.style.position = 'relative';
+      }
     } else if (window.innerWidth > 768) {
-      stickyMenu.style.position = '';
+      stickyMenu.style.position = 'relative';
     }
-  });
+
+  };
+  window.addEventListener('scroll', scrollMenu);
+  window.addEventListener('resize', scrollMenu);
 };
 
 export default burgerMenu;
