@@ -3,7 +3,9 @@ const burgerMenu = () => {
         burgerMenu = document.querySelector('.popup-menu'),
         menuLinks = burgerMenu.querySelectorAll('a'),
         closeMenu = document.getElementById('close-menu'),
-        body = document.querySelector('body');
+        body = document.querySelector('body'),
+        head = document.getElementById('head'),
+        stickyMenu = document.getElementById('sticky-menu');
 
   const handlerMenu = () => {
     burgerMenu.classList.toggle('popup-menu-active');
@@ -35,7 +37,17 @@ const burgerMenu = () => {
     }
   });
 
-  
+  if (window.innerWidth < 768) {
+    window.addEventListener('scroll', () => {
+      let headBottom = Math.ceil(head.getBoundingClientRect().bottom);
+
+      if (headBottom <= 0) {
+        stickyMenu.style.position = 'fixed';
+      } else if (headBottom > 0) {
+        stickyMenu.style.position = '';
+      }
+    });
+  }
 };
 
 export default burgerMenu;
