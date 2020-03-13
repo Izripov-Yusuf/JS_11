@@ -1563,15 +1563,17 @@ nav.popup-menu .close-menu-btn img {
 .services-slider {
   position: relative;
   display: flex;
-  margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px
+  margin: 0 auto
 }
 
-.services-slider .services-btn {
+#wrapper {
+  position: relative;
+}
+
+#wrapper .services-btn {
   position: absolute;
   cursor: pointer;
-  top: 50%;
+  top: 39%;
   width: 40px;
   height: 40px;
   background-color: #ffd11a;
@@ -1580,14 +1582,14 @@ nav.popup-menu .close-menu-btn img {
   transition: background-color 0.3s;
 }
 
-.services-slider .prev {
-  left: 20px;
+#wrapper .prev {
+  left: 0;
   background-image: url(../images/arrow-left.png);
   background-position: 45% 50%;
 }
 
-.services-slider .next {
-  right: 20px;
+#wrapper .next {
+  right: 0;
   background-image: url(../images/arrow-right.png);
   background-position: 55% 50%;
 }
