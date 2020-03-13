@@ -15,6 +15,7 @@ import callbackModal from './modules/callbackModal';
 import sendForm from './modules/sendForm';
 import giftModal from './modules/giftModal';
 import mainSlider from './modules/mainSlider';
+import photoGallery from './modules/photoGallery';
 
 // Бургер меню
 burgerMenu();
@@ -30,3 +31,5 @@ sendForm();
 giftModal();
 // Главный слайдер
 mainSlider();
+// Фотогалерея
+photoGallery();

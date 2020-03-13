@@ -903,6 +903,7 @@ body {
 }
 
 h2 {
+  z-index: 1;
   color: #2e2e2e;
   font-size: 1.9rem;
   font-weight: 400;
@@ -1630,11 +1631,75 @@ nav.popup-menu .close-menu-btn img {
 }
 
 #gallery .gallery-slider {
+  position: relative;
   padding-left: 75px;
   padding-right: 75px;
   max-width: 900px;
+  height: 405px;
   margin: 0 auto;
   text-align: center
+}
+
+#gallery .gallery-slider .slide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  opacity: 0;
+  transition: opacity .3s
+}
+
+#gallery .gallery-slider .slide-active {
+  opacity: 1
+}
+
+#gallery .gallery-slider .gallery-btn {
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #ffd11a;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+#gallery .gallery-slider .prev {
+  left: 20px;
+  background-image: url(../images/arrow-left.png);
+  background-position: 45% 50%;
+}
+
+#gallery .gallery-slider .next {
+  right: 20px;
+  background-image: url(../images/arrow-right.png);
+  background-position: 55% 50%;
+}
+
+#gallery .gallery-slider .gallery-dots {
+  position: absolute;
+  bottom: 20px;
+  width: 83%;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: center
+}
+
+#gallery .gallery-slider .gallery-dots .dot {
+  cursor: pointer;
+  height: 4px;
+  width: 16px;
+  margin: 0 5px;
+  border-radius: 8px;
+  display: inline-block;
+  background-color: #fff;
+  transition: background-color, transform .3s
+}
+
+#gallery .gallery-slider .gallery-dots .dot-active {
+  background-color: #ffd11a;
 }
 
 #gallery .gallery-slider .slide {
