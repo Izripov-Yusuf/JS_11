@@ -49,6 +49,8 @@ const burgerMenu = () => {
           stickyMenu.style.position = '';
         }
       });
+    } else if (window.innerWidth > 768) {
+      stickyMenu.style.position = '';
     }
   });
 };
