@@ -1,13 +1,15 @@
 const arrowUp = () => {
-  const upArrow = document.getElementById('totop');
+  const upArrow = document.getElementById('totop'),
+        nextBlock = document.getElementById('next-block');
 
   upArrow.style.display = 'none';
 
   const scrollToNext = () => {
+    let nextBlockTop = Math.ceil(nextBlock.getBoundingClientRect().top);
 
-    if (window.pageYOffset >= 15) {
+    if (nextBlockTop <= 0) {
       upArrow.style.display = 'block';
-    } else if (window.pageYOffset <= 15) {
+    } else if (nextBlockTop > 0) {
       upArrow.style.display = 'none';
     }
   };

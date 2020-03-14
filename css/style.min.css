@@ -1027,6 +1027,7 @@ header .head .club-select .clubs-list ul {
 header .head .club-select .clubs-list ul.dropdown-list--active {
   height: 122px;
   padding: 15px;
+  z-index: 111111;
   border: 1px solid #ffd11a
 }
 
