@@ -10,9 +10,6 @@ class SliderCarousel {
     responsive = [],
 
   }) {
-    if (!this.main || !this.wrap) {
-      console.warn('slider-carusel Необходимо 2 свойства,"main" и "wrap" ');
-    }
     this.main = document.querySelector(main);
     this.wrap = document.querySelector(wrap);
     this.slides = document.querySelector(wrap).children;
