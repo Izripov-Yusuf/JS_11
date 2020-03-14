@@ -1,5 +1,5 @@
 const sendForm = () => {
-  /* const errorMessage = 'Что-то пошло не так...',
+  const errorMessage = 'Что-то пошло не так...',
     loadMessage = 'Загрузка...',
     successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
@@ -32,8 +32,9 @@ const sendForm = () => {
       const checkInput = target.querySelector('input[type="checkbox"]'),
             submitButton = target.querySelector('button');
       if (checkInput.checked === false) {
+        alert('Поставьте галочку, что вы согласны на обработку персональных данных');
         submitButton.disabled = true;
-      } else {
+      } else if (checkInput.checked === true) {
         submitButton.disabled = false;
       }
       target.appendChild(statusMessage);
@@ -54,7 +55,7 @@ const sendForm = () => {
           console.error(error);
         });
     }
-  }); */
+  });
 };
 
 export default sendForm;

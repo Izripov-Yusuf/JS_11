@@ -18,6 +18,7 @@ import mainSlider from './modules/mainSlider';
 import photoGallery from './modules/photoGallery';
 import arrowUp from './modules/arrowUp';
 import calc from './modules/calc';
+import maskPhone from './modules/maskPhone';
 
 // Бургер меню
 burgerMenu();
@@ -39,6 +40,8 @@ photoGallery();
 arrowUp();
 // Калькулятор
 calc();
+// Маска телефона
+maskPhone();
 
 import SliderCarousel from './modules/SliderCarousel';
 const carousel = new SliderCarousel({
