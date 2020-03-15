@@ -19,42 +19,44 @@ const burgerMenu = () => {
     }
   };
 
-  body.addEventListener('click', (event) => {
-    let target = event.target,
-      parent = target.parentNode;
+  if (burger) {
+    body.addEventListener('click', (event) => {
+      let target = event.target,
+        parent = target.parentNode;
 
-    if (target === burger) {
-      handlerMenu();
-    }
-    if (target === closeMenu) {
-      handlerMenu();
-    } else if (parent.tagName === 'LI') {
-      menuLinks.forEach((item, i) => {
-        if (item === target) {
-          scrollToBlock(i);
+      if (target === burger) {
+        handlerMenu();
+      }
+      if (target === closeMenu) {
+        handlerMenu();
+      } else if (parent.tagName === 'LI') {
+        menuLinks.forEach((item, i) => {
+          if (item === target) {
+            scrollToBlock(i);
+          }
+        });
+      }
+    });
+
+
+    const scrollMenu = () => {
+
+      if (window.innerWidth < 768) {
+        let headBottom = Math.ceil(head.getBoundingClientRect().bottom);
+
+        if (headBottom <= 0) {
+          stickyMenu.style.position = 'fixed';
+        } else if (headBottom > 0) {
+          stickyMenu.style.position = 'relative';
         }
-      });
-    }
-  });
-
-
-  const scrollMenu = () => {
-
-    if (window.innerWidth < 768) {
-      let headBottom = Math.ceil(head.getBoundingClientRect().bottom);
-
-      if (headBottom <= 0) {
-        stickyMenu.style.position = 'fixed';
-      } else if (headBottom > 0) {
+      } else if (window.innerWidth > 768) {
         stickyMenu.style.position = 'relative';
       }
-    } else if (window.innerWidth > 768) {
-      stickyMenu.style.position = 'relative';
-    }
 
-  };
-  window.addEventListener('scroll', scrollMenu);
-  window.addEventListener('resize', scrollMenu);
+    };
+    window.addEventListener('scroll', scrollMenu);
+    window.addEventListener('resize', scrollMenu);
+  }
 };
 
 export default burgerMenu;

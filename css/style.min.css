@@ -1599,6 +1599,18 @@ nav.popup-menu .close-menu-btn img {
   background-position: 55% 50%;
 }
 
+.wrapper .prev-photo {
+  left: 0;
+  background-image: url(../images/arrow-left.png);
+  background-position: 45% 50%;
+}
+
+.wrapper .next-photo {
+  right: 0;
+  background-image: url(../images/arrow-right.png);
+  background-position: 55% 50%;
+}
+
 .services-slider .slide {
   text-align: center;
   margin-right: 6px;

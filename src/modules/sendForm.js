@@ -1,10 +1,17 @@
 const sendForm = () => {
   const errorMessage = 'Что-то пошло не так...',
     loadMessage = 'Загрузка...',
-    successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+    successMessage = 'Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.',
+    thanksModal = document.getElementById('thanks'),
+    formContent = thanksModal.querySelector('.form-content'),
+    formContentText = formContent.querySelector('p');
 
   const statusMessage = document.createElement('div');
   statusMessage.style.cssText = 'font-size: 2rem; color: white;';
+
+  const checkAlert = () => {
+    alert('Поставьте галочку, что вы согласны на обработку персональных данных');
+  };
 
   const postData = (body) => {
     return fetch('./server.php', {
@@ -17,30 +24,48 @@ const sendForm = () => {
   };
 
 
-  let body = document.querySelector('body');
+  const form = document.querySelectorAll('form');
 
-  body.addEventListener('submit', (event) => {
-    event.preventDefault();
-    let target = event.target;
-    if (target.matches('form')) {
+  form.forEach(item => {
+    item.addEventListener('submit', event => {
+      const checkInput = item.querySelector('input[type="checkbox"]');
+      let target = event.target;
+      event.preventDefault();
+
       let allInputs = target.querySelectorAll('input');
-      for (let i = 0; i < allInputs.length; i++) {
-        if (allInputs[i].value === '') {
-          return;
-        }
-      }
-      const checkInput = target.querySelector('input[type="checkbox"]'),
-            submitButton = target.querySelector('button');
-      if (checkInput.checked === false) {
-        alert('Поставьте галочку, что вы согласны на обработку персональных данных');
-        submitButton.disabled = true;
-      } else if (checkInput.checked === true) {
-        submitButton.disabled = false;
-      }
-      target.appendChild(statusMessage);
-      statusMessage.textContent = loadMessage;
 
-      let body = {};
+        for (let i = 0; i < allInputs.length; i++) {
+          if (allInputs[i].value === '') {
+            alert('Заполните все поля в форме!');
+            return;
+          }
+        }
+
+        if (checkInput) {
+          if (!checkInput.checked) {
+            checkAlert();
+            return;
+          }
+        }
+
+      const formData = new FormData(event.target);
+      const body = {};
+
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+
+      thanksModal.addEventListener('click', (event) => {
+        let target = event.target;
+        if (target.classList.contains('close_icon') || target.matches('button')) {
+          thanksModal.style.display = 'none';
+        } else {
+          target = target.closest('.form-wrapper');
+          if (!target) {
+            thanksModal.style.display = 'none';
+          }
+        }
+      });
 
       postData(body)
         .then((response) => {
@@ -48,14 +73,46 @@ const sendForm = () => {
             throw new Error('status network not 200');
           }
           target.reset();
-          statusMessage.textContent = successMessage;
+          thanksModal.style.display = 'block';
+          formContentText.textContent = successMessage;
         })
         .catch((error) => {
-          statusMessage.textContent = errorMessage;
+          thanksModal.style.display = 'block';
+          formContentText.textContent = errorMessage;
           console.error(error);
         });
-    }
+    });
   });
+
+  /* body.addEventListener('submit', (event) => {
+    event.preventDefault();
+    let target = event.target;
+    if (target.matches('form')) {
+      let allInputs = target.querySelectorAll('input');
+      const checkInput = target.querySelector('input[type="checkbox"]'),
+        submitButton = target.querySelector('button');
+
+      if (checkInput.checked === false) {
+        alert('Поставьте галочку, что вы согласны на обработку персональных данных');
+        submitButton.disabled = true;
+      } else if (checkInput.checked === true) {
+        submitButton.disabled = false;
+      }
+      for (let i = 0; i < allInputs.length; i++) {
+        if (allInputs[i].value === '') {
+          return;
+        }
+      }
+      formContentText.textContent = loadMessage;
+
+      const formData = new FormData(target);
+      let body = {};
+
+      formData.forEach((value, key) => {
+        body[key] = value;
+      });
+    }
+  }); */
 };
 
 export default sendForm;
