@@ -75,6 +75,9 @@ const sendForm = () => {
           target.reset();
           thanksModal.style.display = 'block';
           formContentText.textContent = successMessage;
+          setTimeout(() => {
+            thanksModal.style.display = 'none';
+          }, 5000);
         })
         .catch((error) => {
           thanksModal.style.display = 'block';
@@ -83,36 +86,6 @@ const sendForm = () => {
         });
     });
   });
-
-  /* body.addEventListener('submit', (event) => {
-    event.preventDefault();
-    let target = event.target;
-    if (target.matches('form')) {
-      let allInputs = target.querySelectorAll('input');
-      const checkInput = target.querySelector('input[type="checkbox"]'),
-        submitButton = target.querySelector('button');
-
-      if (checkInput.checked === false) {
-        alert('Поставьте галочку, что вы согласны на обработку персональных данных');
-        submitButton.disabled = true;
-      } else if (checkInput.checked === true) {
-        submitButton.disabled = false;
-      }
-      for (let i = 0; i < allInputs.length; i++) {
-        if (allInputs[i].value === '') {
-          return;
-        }
-      }
-      formContentText.textContent = loadMessage;
-
-      const formData = new FormData(target);
-      let body = {};
-
-      formData.forEach((value, key) => {
-        body[key] = value;
-      });
-    }
-  }); */
 };
 
 export default sendForm;
