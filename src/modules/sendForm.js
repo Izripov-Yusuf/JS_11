@@ -32,7 +32,7 @@ const sendForm = () => {
       let target = event.target;
       event.preventDefault();
 
-      let allInputs = target.querySelectorAll('input');
+      let allInputs = target.querySelectorAll('input[class="not-empty"]');
 
         for (let i = 0; i < allInputs.length; i++) {
           if (allInputs[i].value === '') {
