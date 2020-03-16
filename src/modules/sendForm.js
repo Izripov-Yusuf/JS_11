@@ -1,3 +1,4 @@
+import calc from './calc';
 const sendForm = () => {
   const errorMessage = 'Что-то пошло не так...',
     loadMessage = 'Загрузка...',
@@ -75,6 +76,7 @@ const sendForm = () => {
           target.reset();
           thanksModal.style.display = 'block';
           formContentText.textContent = successMessage;
+          calc();
           setTimeout(() => {
             thanksModal.style.display = 'none';
           }, 5000);
@@ -82,6 +84,7 @@ const sendForm = () => {
         .catch((error) => {
           thanksModal.style.display = 'block';
           formContentText.textContent = errorMessage;
+          calc();
           console.error(error);
         });
     });

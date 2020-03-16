@@ -6,7 +6,6 @@ const dropdownClub = () => {
 
   clubSelect.addEventListener('click', (event) => {
     let target = event.target;
-    console.log('target: ', target);
     if (target === dropdownList || target === dropdownListItem[0] || target === dropdownListItem[1]) {
       return;
     }
