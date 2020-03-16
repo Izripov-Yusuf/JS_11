@@ -12,8 +12,6 @@ const calc = () => {
       promocode.addEventListener('input', () => {
         if (promocode.value === 'ТЕЛО2020') {
           priceTotal.textContent = priceTotal.textContent - Math.ceil(((priceTotal.textContent / 100) * 30));
-        } else if (promocode.value !== 'ТЕЛО2020') {
-          check();
         }
       });
     };
